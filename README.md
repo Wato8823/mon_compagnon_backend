@@ -1,12 +1,12 @@
 # Mon Compagnon Backend FastAPI
 
-API REST pour l'application mobile de gestion de citÃ©s universitaires.
+API REST pour l'application mobile de gestion de cites.
 
 ---
 
 ## Stack technique
 
-| Outil | Version | RÃ´le |
+| Outil | Version | Role |
 |-------|---------|------|
 | Python | 3.11.9 | Langage |
 | FastAPI | 0.111.0 | Framework web |
@@ -24,12 +24,12 @@ API REST pour l'application mobile de gestion de citÃ©s universitaires.
 
 ## Installation locale (Windows)
 
-### PrÃ©requis
+### Prerequis
 - Python **3.11.9** (`python --version`)
 - PostgreSQL 14+
 - Git
 
-### Ã‰tapes
+### Etapes
 
 ```cmd
 rem 1. Cloner / ouvrir le dossier
@@ -87,29 +87,29 @@ BAIL_ALERTE_JOURS=30
 
 ---
 
-## DÃ©ploiement sur Render
+## Deploiement sur Render
 
-### Ã‰tape 1 â€” PostgreSQL sur Render
+### Etape 1: Creation de la BD PostgreSQL sur Render
 
-1. Va sur https://render.com â†’ **New** â†’ **PostgreSQL**
+1. Va sur https://render.com puis **New** puis **PostgreSQL**
 2. Nom : `mon-compagnon-db`
 3. Plan : **Free**
 4. Clique **Create Database**
 5. Copie l'**Internal Database URL**
 
-### Ã‰tape 2 â€” Cloudinary (stockage images gratuit)
+### Ã‰tape 2: Configuration de Cloudinary (stockage images gratuit)
 
-1. Va sur https://cloudinary.com â†’ crÃ©er un compte gratuit
+1. Va sur https://cloudinary.com â†’ creer un compte gratuit
 2. Dans le Dashboard, copie :
    - **Cloud Name**
    - **API Key**
    - **API Secret**
 
-### Ã‰tape 3 â€” Web Service sur Render
+### Etape 3: Web Service sur Render
 
-1. **New** â†’ **Web Service**
+1. **New** puis **Web Service**
 2. Connecte ton repo GitHub (push le dossier `backend/` d'abord)
-3. ParamÃ¨tres :
+3. Parametres :
    ```
    Name      : mon-compagnon-api
    Runtime   : Python 3
@@ -118,10 +118,10 @@ BAIL_ALERTE_JOURS=30
    ```
 4. Onglet **Environment** â†’ ajouter les variables :
 
-| ClÃ© | Valeur |
+| Cle | Valeur |
 |-----|--------|
 | `DATABASE_URL` | Internal URL depuis l'Ã©tape 1 |
-| `SECRET_KEY` | ClÃ© gÃ©nÃ©rÃ©e (voir ci-dessous) |
+| `SECRET_KEY` | Cle generee (voir ci-dessous) |
 | `CLOUDINARY_CLOUD_NAME` | Depuis Cloudinary |
 | `CLOUDINARY_API_KEY` | Depuis Cloudinary |
 | `CLOUDINARY_API_SECRET` | Depuis Cloudinary |
@@ -135,14 +135,14 @@ python -c "import secrets; print(secrets.token_hex(32))"
 
 5. Clique **Create Web Service**
 
-### Ã‰tape 4: Seed initial sur Render
+### Etape 4: Seed initial sur Render
 
 Apres le premier deploiement, dans l'onglet **Shell** de ton service Render :
 ```bash
 python -m app.utils.seed
 ```
 
-### Ã‰tape 5: Connecter le frontend Flutter
+### Etape 5: Connecter le frontend Flutter
 
 Dans `frontend/lib/services/api_client.dart` :
 ```dart
@@ -196,13 +196,13 @@ Mªme logique pour les chambres : `/api/v1/cites/{cite_id}/chambres`
 - Formats : JPEG, PNG, WEBP
 - Taille max : 5 Mo
 - Redimensionnement auto : max 800x600px
-- Compression auto : qualitÃ© 85%
+- Compression auto : qualite 85%
 
 ---
 
-## Comptes de test (aprÃ¨s seed)
+## Comptes de test (apres seed)
 
-| RÃ´le | Email | Mot de passe |
+| Role | Email | Mot de passe |
 |------|-------|-------------|
 | Responsable | linjouom9@gmail.com | password123 |
 | Ã‰tudiant 1 | kamga.paul@gmail.com | password123 |
@@ -226,10 +226,10 @@ pytest tests/ -v --cov=app --cov-report=term-missing
 
 ---
 
-## RÃ©solution des erreurs courantes
+## Resolution des erreurs courantes
 
 **`postgres://` vs `postgresql://`**
-Render fournit les URLs avec `postgres://` â€” le code corrige automatiquement.
+Render fournit les URLs avec `postgres://` puis le code corrige automatiquement.
 
 **`pydantic-core` build error**
 Utiliser Python 3.11.9 (pas 3.13). Mettre Ã  jour pip :
@@ -238,10 +238,10 @@ python -m pip install --upgrade pip setuptools wheel
 ```
 
 **`psycopg2-binary` build error**
-VÃ©rifier Python 3.11.9. Si persistant, remplacer dans requirements.txt par `pg8000==1.31.1`
+Verifier Python 3.11.9. Si persistant, remplacer dans requirements.txt par `pg8000==1.31.1`
 et dans `.env` : `DATABASE_URL=postgresql+pg8000://...`
 
-**Port dÃ©jÃ  utilisÃ©**
+**Port deja  utilise**
 ```cmd
 netstat -ano | findstr :8000
 taskkill /PID <pid> /F
